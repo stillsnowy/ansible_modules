@@ -109,18 +109,21 @@ from ansible.module_utils.urls import fetch_url
 
 def check_if_permission_exist(
     module,
-    baseurl: str,
-    url_username: str,
-    url_password: str,
-    name: str,
-    perm_type: str,
-    permission: str,
-    validate_certs: bool
+    baseurl,
+    url_username,
+    url_password,
+    name,
+    perm_type,
+    permission,
+    validate_certs
 ):
 
     api_url = (
-        f'{baseurl}/rest/api/1.0/admin/permissions/{perm_type}s?'
-        + f'filter={name}'
+        '{0}/rest/api/1.0/admin/permissions/{1}s?'
+        .format(baseurl, perm_type)
+        +
+        'filter={0}'
+        .format(name)
     )
 
     try:
@@ -146,19 +149,22 @@ def check_if_permission_exist(
 
 def add_permission(
     module,
-    baseurl: str,
-    url_username: str,
-    url_password: str,
-    name: str,
-    perm_type: str,
-    permission: str,
-    validate_certs: bool
-) -> bool:
+    baseurl,
+    url_username,
+    url_password,
+    name,
+    perm_type,
+    permission,
+    validate_certs
+):
     if not module.check_mode:
 
         api_url = (
-                f'{baseurl}/rest/api/1.0/admin/permissions/{perm_type}s?'
-                + f'name={name}&permission={permission}'
+            '{0}/rest/api/1.0/admin/permissions/{1}s?'
+            .format(baseurl, perm_type)
+            +
+            'name={0}&permission={1}'
+            .format(name, permission)
         )
 
         try:
@@ -174,20 +180,23 @@ def add_permission(
 
 def delete_permission(
     module,
-    baseurl: str,
-    url_username: str,
-    url_password: str,
-    name: str,
-    perm_type: str,
-    permission: str,
-    validate_certs: bool
-) -> bool:
+    baseurl,
+    url_username,
+    url_password,
+    name,
+    perm_type,
+    permission,
+    validate_certs
+):
 
     if not module.check_mode:
 
         api_url = (
-            f'{baseurl}/rest/api/1.0/admin/permissions/{perm_type}s?'
-            + f'name={name}&permission={permission}'
+            '{0}/rest/api/1.0/admin/permissions/{1}s?'
+            .format(baseurl, perm_type)
+            +
+            'name={0}&permission={1}'
+            .format(name, permission)
         )
 
         try:
